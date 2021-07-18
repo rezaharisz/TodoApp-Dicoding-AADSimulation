@@ -28,19 +28,26 @@ class TaskAdapter(
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = getItem(position) as Task
         //TODO 9 : Bind data to ViewHolder (You can run app to check)
+        holder.bind(task)
         when {
             //TODO 10 : Display title based on status using TitleTextView
             task.isCompleted -> {
                 //DONE
                 holder.cbComplete.isChecked = true
+                val title = TaskTitleView.DONE
+                holder.tvTitle.state = title
             }
             task.dueDateMillis < System.currentTimeMillis() -> {
                 //OVERDUE
                 holder.cbComplete.isChecked = false
+                val title = TaskTitleView.OVERDUE
+                holder.tvTitle.state = title
             }
             else -> {
                 //NORMAL
                 holder.cbComplete.isChecked = false
+                val title = TaskTitleView.NORMAL
+                holder.tvTitle.state = title
             }
         }
     }
