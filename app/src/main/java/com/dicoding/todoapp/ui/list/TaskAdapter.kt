@@ -1,6 +1,7 @@
 package com.dicoding.todoapp.ui.list
 
 import android.content.Intent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
@@ -20,7 +21,8 @@ class TaskAdapter(
 
     //TODO 8 : Create and initialize ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        throw NotImplementedError("Not yet implemented")
+        val task = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
+        return TaskViewHolder(task)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
