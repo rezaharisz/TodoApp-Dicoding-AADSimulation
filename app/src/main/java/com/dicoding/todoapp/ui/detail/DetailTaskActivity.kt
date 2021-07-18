@@ -24,7 +24,6 @@ class DetailTaskActivity : AppCompatActivity() {
 
         //TODO 11 : Show detail task and implement delete action
         val i = intent.getIntExtra(TASK_ID, 0)
-
         val factory = ViewModelFactory.getInstance(this)
         detailTaskViewModel = ViewModelProvider(this, factory)[DetailTaskViewModel::class.java]
         detailTaskViewModel.setTaskId(i)
