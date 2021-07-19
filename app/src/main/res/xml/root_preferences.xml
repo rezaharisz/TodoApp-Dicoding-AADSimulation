@@ -7,6 +7,10 @@
             app:summary="@string/pref_notify_summary"
             app:title="@string/pref_notify_name" />
 
+        <SwitchPreference
+            app:key="@string/NIGHT_MODE"
+            app:title="Night Mode" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.todoapp.R
@@ -27,6 +28,7 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_add, menu)
+
         return true
     }
 
@@ -44,8 +46,12 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
                 val description = descriptionTask.text.toString()
                 val task = Task(0, title, description, dueDateMillis)
 
+                Toast.makeText(this, "Data Added Successfully", Toast.LENGTH_SHORT).show()
+
                 addTaskViewModel.addTask(task)
-                true
+                super.onBackPressed()
+
+                return true
             }
             else -> super.onOptionsItemSelected(item)
         }

@@ -3,6 +3,7 @@ package com.dicoding.todoapp.ui.detail
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.todoapp.R
@@ -36,6 +37,7 @@ class DetailTaskActivity : AppCompatActivity() {
 
         btnDeleteTask.setOnClickListener {
             detailTaskViewModel.deleteTask()
+            Toast.makeText(this, "Task is Deleted", Toast.LENGTH_SHORT).show()
 
             super.onBackPressed()
         }

@@ -30,4 +30,5 @@
     <string name="filter_all">All</string>
     <string name="filter_active">Active</string>
     <string name="filter_completed">Completed</string>
+    <string name="NIGHT_MODE">NIGHT MODE</string>
 </resources>

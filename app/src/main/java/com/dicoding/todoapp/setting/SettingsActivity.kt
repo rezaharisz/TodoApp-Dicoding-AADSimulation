@@ -1,7 +1,6 @@
 package com.dicoding.todoapp.setting
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceFragmentCompat
@@ -33,30 +32,36 @@ class SettingsActivity : AppCompatActivity() {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
             val prefNotification = findPreference<SwitchPreference>(getString(R.string.pref_key_notify))
+            val nightMode = findPreference<SwitchPreference>(getString(R.string.NIGHT_MODE))
+
             prefNotification?.setOnPreferenceChangeListener { _, newValue ->
                 val channelName = getString(R.string.notify_channel_name)
                 //TODO 13 : Schedule and cancel daily reminder using WorkManager with data channelName
                 val workManager = context?.let { WorkManager.getInstance(it) }
-                if (workManager != null){
-                    val data = Data.Builder()
-                        .putString(NOTIFICATION_CHANNEL_ID, channelName)
-                        .build()
 
-                    val periodicWorkRequest = PeriodicWorkRequest.Builder(NotificationWorker::class.java, 5, TimeUnit.MINUTES)
-                        .setInputData(data)
-                        .build()
+                val data = Data.Builder()
+                    .putString(NOTIFICATION_CHANNEL_ID, channelName)
+                    .build()
 
-                    if (newValue == true){
-                        workManager.enqueue(periodicWorkRequest)
-                    } else{
-                        workManager.cancelWorkById(periodicWorkRequest.id)
-                    }
+                val periodicWorkRequest = PeriodicWorkRequest.Builder(NotificationWorker::class.java, 5, TimeUnit.MINUTES)
+                    .setInputData(data)
+                    .build()
 
-                } else {
-                    Log.e(NOTIFICATION_CHANNEL_ID, "Data Null")
+                if (newValue == true){
+                    workManager?.enqueue(periodicWorkRequest)
+                } else{
+                    workManager?.cancelWorkById(periodicWorkRequest.id)
                 }
 
-                true
+                return@setOnPreferenceChangeListener true
+            }
+
+            nightMode?.setOnPreferenceChangeListener { _, value ->
+                if (value == true){
+                    updateTheme(AppCompatDelegate.MODE_NIGHT_YES)
+                } else{
+                    updateTheme(AppCompatDelegate.MODE_NIGHT_NO)
+                }
             }
         }
 
