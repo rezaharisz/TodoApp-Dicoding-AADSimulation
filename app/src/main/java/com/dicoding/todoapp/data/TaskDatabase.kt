@@ -35,9 +35,9 @@ abstract class TaskDatabase : RoomDatabase() {
                 ).addCallback(object : Callback(){
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        INSTANCE?.let { tasdkDb ->
+                        INSTANCE?.let {
                             Executors.newSingleThreadExecutor().execute {
-                                fillWithStartingData(context.applicationContext, tasdkDb.taskDao())
+                                fillWithStartingData(context.applicationContext, it.taskDao())
                             }
                         }
                     }
