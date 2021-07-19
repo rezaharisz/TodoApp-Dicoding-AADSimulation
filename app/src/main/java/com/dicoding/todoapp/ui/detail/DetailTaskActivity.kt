@@ -29,13 +29,15 @@ class DetailTaskActivity : AppCompatActivity() {
         detailTaskViewModel.setTaskId(i)
 
         detailTaskViewModel.task.observe(this, {
-            titleTask.text = it.title
-            descriptionTask.text = it.description
-            dateTask.text = it.dueDateMillis.toString()
+            titleTask.text = it?.title
+            descriptionTask.text = it?.description
+            dateTask.text = it?.dueDateMillis.toString()
         })
 
         btnDeleteTask.setOnClickListener {
             detailTaskViewModel.deleteTask()
+
+            super.onBackPressed()
         }
     }
 }
