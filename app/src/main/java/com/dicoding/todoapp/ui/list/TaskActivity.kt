@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -47,7 +46,9 @@ class TaskActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         taskViewModel = ViewModelProvider(this, factory).get(TaskViewModel::class.java)
 
-        taskViewModel.tasks.observe(this, Observer(this::showRecyclerView))
+        taskViewModel.tasks.observe(this, {
+            showRecyclerView(it)
+        })
 
         //TODO 15 : Fixing bug : snackBar not show when task completed
         taskViewModel.snackbarText.observe(this, {
